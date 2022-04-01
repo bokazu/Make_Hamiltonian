@@ -3,27 +3,17 @@
 using namespace std;
 // const size_t site = 4;
 
-void szz(int i, int j, int site_num, int max_site_num, int dim,
+void szz(int j, int site_num, int tot_site_num, int dim,
          double *H)  // bra_iはsiteを変更するごとに手で変える必要あり
 {
-    int n;
-    boost::dynamic_bitset<> bra_i(max_site_num, i);
-    boost::dynamic_bitset<> ket_j(max_site_num, j);
-    // bitset<site> bra_i(i);
-    // bitset<site> ket_j(j);
-    bool bit_check0, bit_check1;
-    // if (site_num != max_site_num - 1)
-    // {
-    //     bit_check0 = ket_j.test(site_num);
-    //     bit_check1 = ket_j.test(site_num + 1);
-    // }
-    // else
-    // {
-    //     bool bit_check0 = ket_j.test(site_num);
-    //     bool bit_check1 = ket_j.test(0);
-    // }
+    int J = 1;
 
-    if (site_num == max_site_num - 1)
+    // Point A2
+    boost::dynamic_bitset<> ket_j(tot_site_num, j);
+    bool bit_check0, bit_check1;
+
+    // Point B2
+    if (site_num == tot_site_num - 1)
     {
         bit_check0 = ket_j.test(site_num);
         bit_check1 = ket_j.test(0);
@@ -34,38 +24,13 @@ void szz(int i, int j, int site_num, int max_site_num, int dim,
         bit_check1 = ket_j.test(site_num + 1);
     }
 
-    // Point A3
-    if (bra_i != ket_j)
+    // Hamiltonianへの代入
+    if (bit_check0 == bit_check1)
     {
-        if (i == j)
-            H[j + i * dim] += 0.;
-        else
-        {
-            H[j + i * dim] += 0.;
-            H[i + j * dim] += 0.;
-        }
+        H[j + j * dim] += 0.25 * J;
     }
     else
     {
-        if (bit_check0 == bit_check1)
-        {
-            if (i == j)
-                H[j + i * dim] += 0.25;
-            else
-            {
-                H[j + i * dim] += 0.25;
-                H[i + j * dim] += 0.25;
-            }
-        }
-        else
-        {
-            if (i == j)
-                H[j + i * dim] -= 0.25;
-            else
-            {
-                H[j + i * dim] -= 0.25;
-                H[i + j * dim] -= 0.25;
-            }
-        }
+        H[j + j * dim] -= 0.25 * J;
     }
 }

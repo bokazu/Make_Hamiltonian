@@ -68,9 +68,9 @@
 #include "cblas.h"
 #include "lapacke.h"
 
-void spm(int i, int j, int site_num, int max_site_num, int dim, double* H);
-void smp(int i, int j, int site_num, int max_site_num, int dim, double* H);
-void szz(int i, int j, int site_num, int max_site_num, int dim, double* H);
+void spm(int j, int site_num, int tot_site_num, int dim, double* H);
+void smp(int j, int site_num, int tot_site_num, int dim, double* H);
+void szz(int j, int site_num, int tot_site_num, int dim, double* H);
 void printmat(int n, double* A);
 void fprintmat(std::ofstream& file, int n, double* A);
 void printvec(int n, double* B);
