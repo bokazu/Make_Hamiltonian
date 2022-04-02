@@ -6,14 +6,16 @@ lapack_int LAPACKE_dstev(int matrix_order, char jobz, lapack_int n, double *d,
 
 int main()
 {
-    int tot_site_num;
+    int tot_site_num, bond_num;
     //<i|H|j>
     //|0> = |00>,|1> = |01>,|2> = |10>, |3> = |11> (|fermion2,fermion1>)
     string settingfile_name =
         "model_set/settingfile.txt";  //系のsite数、output用ファイル名の情報をこのfileに書いておく
-    string OutputFile_name;           // output用file
+    string JsetFile_name;
+    string OutputFile_name;  // output用file
 
     ifstream settingfile(settingfile_name);
+
     string ftmp, Boundary_Condition;
     stringstream ss;
     int fcount = 0;
@@ -34,6 +36,11 @@ int main()
         }
         else if (fcount == 2)
         {
+            JsetFile_name = ftmp;
+            cout << "JsetFile_name : " << JsetFile_name << endl;
+        }
+        else if (fcount == 3)
+        {
             Boundary_Condition = ftmp;
             cout << "Boundary Condition : " << Boundary_Condition << endl;
         }
@@ -42,13 +49,29 @@ int main()
     settingfile.close();
 
     int dim = 1 << tot_site_num;
-    string boundary;
     cout << "dim=" << dim << endl;
     double *H = new double[dim * dim];
     double *lw = new double[dim];
-
     // Hamiltonianの初期化(全要素0で埋める)
     for (int i = 0; i < dim * dim; i++) H[i] = 0.;
+
+    /*jset.txtからのbondごとの相互作用情報の取得*/
+    /*bond数の取得*/
+    ifstream JsetFile(JsetFile_name);
+    if (Boundary_Condition == "y")
+    {
+        bond_num = tot_site_num;
+    }
+    else
+    {
+        bond_num = tot_site_num - 1;
+    }
+
+    double *J = new double[bond_num];
+    /*Jの値の格納*/
+    for (int i = 0; i < bond_num; i++) JsetFile >> J[i];
+
+    JsetFile.close();
 
     if (Boundary_Condition == "y")
     {
@@ -93,4 +116,5 @@ int main()
 
     output.close();
     delete[] H;
+    delete[] lw;
 }
