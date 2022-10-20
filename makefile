@@ -1,23 +1,22 @@
 gcc_options = -std=c++17 -Wall --pedantic-errors -g
-l_b = -llapacke -lblas -lcblas
 
-program : main.o spm.o smp.o szz.o print_matrix.o
-	g++ -o $@ $^ $(l_b)
+program : main.o hamiltonian.o spin.o jset.o print_matrix.o
+	g++ -o $@ $^
 
 main.o : main.cpp
-	g++ -c $< $(l_b)
+	g++ -c $< 
 
-spm.o : spm.cpp
-	g++ -c $< $(l_b)
+hamiltonian.o : hamiltonian.cpp
+	g++ -c $< 
 
-smp.o : smp.cpp
-	g++ -c $< $(l_b)
+spin.o : spin.cpp
+	g++ -c $< 
 
-szz.o : szz.cpp
-	g++ -c $< $(l_b)
+jset.o : jset.cpp
+	g++ -c $<
 
 print_matrix.o : print_matrix.cpp
-	g++ -c $< $(l_b)
+	g++ -c $< 
 
 run : program
 	./program

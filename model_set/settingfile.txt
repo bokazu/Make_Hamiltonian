@@ -1,4 +1,0 @@
-2
-output/heisen_2site_nb.txt
-j_set.txt
-n
