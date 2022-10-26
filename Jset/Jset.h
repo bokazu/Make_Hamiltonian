@@ -1,27 +1,25 @@
 #ifndef ___Class_Jset
 #define ___Class_Jset
 
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <string>
+#include<iostream>
+#include<iomanip>
+#include<fstream>
+#include<string>
 
-//基底クラス
-class Jset
-{
-  private:
-    std::string jset_filename;
-    int jset_line;
-    int** J_index;
-    double* J_val;
-    
-  public:
+class Jset{
+    private:
+      std::string jset_filename;
+      int jset_line;
+      int** J_index;
+      double* J_val;
+      
+    public:
     //コンストラクタ
-    Jset(std::string filename) : jset_filename(filename)
-    {
-        jset_line = Jset::count_lines();
+    Jset(std::string filename) : jset_filename(filename) {
+        jset_line = lines();
+        std::cout << "jset_line = " << jset_line << "\n";
         J_index = new int*[2];
-        for (int i = 0; i < 2; i++) J_index[i] = new int[jset_line];
+        for(int i = 0; i < 2; i++) J_index[i] = new int[jset_line];
         J_val = new double[jset_line];
         std::cout << "Jset is constructed.\n";
     }
@@ -30,10 +28,8 @@ class Jset
     Jset(const Jset& x);
 
     //デストラクタ
-    ~Jset()
-    {
-        for (int i = 0; i < 2; i++)
-        {
+    ~Jset(){
+        for(int i = 0; i < 2;i++){
             delete[] J_index[i];
         }
         delete[] J_index;
@@ -48,20 +44,18 @@ class Jset
     //---代入演算子=----//
     Jset& operator=(const Jset& x);
 
-    // jset用のファイルが存在するかを調べる
+    //jset用のファイルが存在するかを調べる
     static bool file_check(std::string filename);
-
-    // Jsetの情報を標準出力する
+    
+    //Jsetの情報を標準出力する
     void print() const;
-
-    // jsetの情報を配列に代入する
+    
+    //jsetの情報を配列に代入する
     void set();
 
-  int count_lines();
-
-  //J_indexのgetter
-  int index(int i, int j) const{return J_index[i][j];}
-  double val(int i) const{return J_val[i];}
+    int index(int i,int j){return J_index[i][j];}
+    int val(int i){return J_val[i];}
+    int lines();
 };
 
 #endif

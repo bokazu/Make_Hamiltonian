@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "DNS_Hamiltonian.h"
-#include "Jset.h"
 
 using namespace std;
 
@@ -11,8 +10,7 @@ int main()
     H1.init();
     cout << "H1の次元は" << H1.dim() << "です。"
          << "\n";
-    H1.hamiltonian();
-    // DNS_Hamiltonian H2 = H1;
+    DNS_Hamiltonian H2 = H1;
 
 
     // cout << "jset file : " << H1.jsetfile() << endl;

@@ -74,7 +74,7 @@ int hamiltonian(char f, char info_jset, const int tot_site_num, string jset_file
 // J_indexとJ_valはextern宣言しているので引数には取らない
 int hamiltonian_dns(const int tot_site_num, const int mat_dim, double* H)
 {
-    cout << "Calculate Hamiltonian elements with COO format\n";
+    cout << "Calculate Hamiltonian elements with DNS format\n";
 
     //====================行列要素の計算====================//
     for (int m = 0; m < mat_dim; m++)
