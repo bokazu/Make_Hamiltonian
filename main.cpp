@@ -7,8 +7,8 @@ int Jset_line;
 int main()
 {
     //==============モデルによって変更する箇所======================//
-    const int tot_site_num = 2;
-    string jset_filename = "jset/jset_2site.txt";
+    const int tot_site_num = 4;
+    string jset_filename = "jset/jset_4site.txt";
     //==============================================================//
 
     cout << "=======================================================================\n"

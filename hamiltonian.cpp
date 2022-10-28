@@ -20,6 +20,7 @@ int hamiltonian(char f, char info_jset, const int tot_site_num, string jset_file
             vec_init(mat_dim * mat_dim, H);
             hamiltonian_dns(tot_site_num, mat_dim, H);
 
+            printmat(mat_dim, H);
             delete[] H;
         }
         else if (f == '2')  // COO FORMAT
