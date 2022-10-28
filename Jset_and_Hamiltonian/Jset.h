@@ -58,6 +58,8 @@ class Jset
     void set();
 
   int count_lines();
+  //jset_lineのゲッタ
+  int get_line() const { return jset_line;}
 
   //J_indexのgetter
   int index(int i, int j) const{return J_index[i][j];}

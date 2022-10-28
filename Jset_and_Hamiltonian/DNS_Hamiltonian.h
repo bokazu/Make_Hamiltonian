@@ -2,6 +2,7 @@
 #define ___Class_Hamiltonian
 
 #include <iomanip>
+
 #include "Jset.h"
 
 class DNS_Hamiltonian
@@ -12,13 +13,14 @@ class DNS_Hamiltonian
     int mat_dim;
     double* H;
     Jset J;
-    // スピン演算子と状態ベクトルの演算を行う。メンバ関数hamiltonian()中で使用する
-    
+    void set_J() { J.set(); }
 
   public:
     //明示的コンストラクタ
-    explicit DNS_Hamiltonian(std::string filename, int site) : jset_filename(filename), tot_site_num(site), mat_dim(1 << tot_site_num),J(filename)
+    explicit DNS_Hamiltonian(std::string filename, int site) : jset_filename(filename), tot_site_num(site), mat_dim(1 << tot_site_num), J(filename)
     {
+        //相互作用の情報をsetする
+        set_J();
         //配列を動的確保し、0で初期化する
         H = new double[mat_dim * mat_dim];
         for (int i = 0; i < mat_dim * mat_dim; i++)
@@ -61,8 +63,11 @@ class DNS_Hamiltonian
     // Hamiltonianの第[i][j]要素を標準出力する
     void print(int i, int j) const;
 
-    void spin(int m,int site_i);
+    void spin(int m, int site_i);
 
+    double at(int i, int j) { return H[j + mat_dim * i]; }
+
+    void jset() const { J.print(); }
 };
 
 #endif
